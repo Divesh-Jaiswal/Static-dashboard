@@ -1,0 +1,11 @@
+{
+  "name": "people-directory",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "serve": "npx serve ."
+  },
+  "devDependencies": { "typescript": "^5.6.0" }
+}

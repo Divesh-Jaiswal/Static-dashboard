@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Posts Dashboard</title>
+  <meta name="description" content="A responsive, accessible static dashboard fetching live data from JSONPlaceholder public API.">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="dist/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div>
+        <div class="brand-row">
+          <span class="brand-badge" aria-hidden="true">API</span>
+          <h1>Posts Dashboard</h1>
+        </div>
+        <p class="subtitle">Live metrics and content feed fetched from JSONPlaceholder API.</p>
+      </div>
+      <div class="header-actions">
+        <!-- <span class="live-indicator" id="connection-status" aria-label="Status: Connected">
+          <span class="dot" aria-hidden="true"></span> Live
+        </span> -->
+        <button type="button" id="refresh-btn" class="btn btn-secondary">
+          Refresh Data
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- KPI / Metric Cards Section -->
+    <section aria-labelledby="metrics-heading" class="metrics-section">
+      <h2 id="metrics-heading" class="sr-only">Key Metrics</h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <span class="metric-label">Total Posts</span>
+          <span class="metric-value" id="stat-total-posts">—</span>
+          <span class="metric-subtext">Across all authors</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Active Authors</span>
+          <span class="metric-value" id="stat-authors">—</span>
+          <span class="metric-subtext">Unique user IDs</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Avg. Words / Post</span>
+          <span class="metric-value" id="stat-avg-words">—</span>
+          <span class="metric-subtext">Content density</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Matching Posts</span>
+          <span class="metric-value" id="stat-visible-posts">—</span>
+          <span class="metric-subtext" id="stat-visible-subtext">Current view</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content & Filter Toolbar -->
+    <section aria-labelledby="feed-heading" class="feed-section">
+      <div class="section-header">
+        <h2 id="feed-heading">Recent Posts Feed</h2>
+        <p id="status" role="status" aria-live="polite">Loading dashboard data…</p>
+      </div>
+
+      <!-- Controls Toolbar -->
+      <form class="toolbar" role="search" aria-label="Post filters" onsubmit="return false;">
+        <div class="control-group">
+          <label for="filter-query">Search content</label>
+          <input
+            id="filter-query"
+            type="search"
+            placeholder="Search by title or body..."
+            autocomplete="off"
+            disabled
+          >
+        </div>
+
+        <div class="control-group">
+          <label for="filter-author">Filter by author</label>
+          <select id="filter-author" disabled>
+            <option value="all">All Authors</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="sort-order">Sort by</label>
+          <select id="sort-order" disabled>
+            <option value="id-asc">Post ID (1 → 100)</option>
+            <option value="id-desc">Post ID (100 → 1)</option>
+            <option value="title-asc">Title (A → Z)</option>
+            <option value="length-desc">Length (Longest first)</option>
+          </select>
+        </div>
+
+        <div class="control-actions">
+          <button type="button" id="reset-filters" class="btn btn-outline" disabled>
+            Reset
+          </button>
+        </div>
+      </form>
+
+      <!-- Error State -->
+      <div id="error" class="alert-box" hidden>
+        <p role="alert" id="error-message"></p>
+        <button type="button" id="retry" class="btn btn-primary">Try again</button>
+      </div>
+
+      <!-- Posts Grid -->
+      <ul id="list" class="posts-grid" aria-label="Posts list"></ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Static Dashboard built with accessible HTML5, CSS3, and typed TypeScript (no framework).</p>
+  </footer>
+
+  <noscript>
+    <p class="noscript">This dashboard requires JavaScript to fetch and display dynamic API data.</p>
+  </noscript>
+</body>
+</html>
